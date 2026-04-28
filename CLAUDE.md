@@ -26,21 +26,15 @@ Before implementing:
 
 Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
 
-## 3. Surgical Changes
+## 3. Understand Existing Patterns First
 
-**Touch only what you must. Clean up only your own mess.**
+**先停下来仔细看看现有项目和 pattern 再动手。Stop and study the existing codebase and patterns before writing anything. Read before you write. Don't invent when the project already solved it.**
 
-When editing existing code:
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it - don't delete it.
-
-When your changes create orphans:
-- Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
-
-The test: Every changed line should trace directly to the user's request.
+Before implementing any non-trivial change:
+- Find and read the closest existing code that does something similar. The project likely already has the pattern (a layout structure, a file picker, a settings page, a data propagation chain).
+- If there's a parallel feature (e.g., StopSettingActivity for a dedicated settings page, custom-audio file picker for SAF selection), treat it as the template. Deviate only with a reason.
+- Check imports, build.gradle, and utils before adding new dependencies or helper methods. The project may already have what you need (commons-lang3, DensityUtils, etc.).
+- Don't let "smallest diff" override "right approach." If adding 5 lines of layout XML saves 40 lines of code and cuts memory by half, add the 5 lines.
 
 ## 4. Goal-Driven Execution
 
@@ -62,4 +56,13 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 ---
 
-**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+**These guidelines are working if:** changes that follow existing project patterns need no rewrites, unnecessary dependencies and abstractions don't sneak in, clarifying questions come before code not after mistakes, and the first approach is rarely the wrong one.
+
+
+
+---
+---
+---
+
+
+
